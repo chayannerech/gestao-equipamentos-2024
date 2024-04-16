@@ -10,7 +10,7 @@
             this.id = id;
         }
 
-        public void Cadastrar(ref int contador, ref int contadorID)
+        public void NovoEquipamento(ref int contador, ref int contadorID)
         {
             IniciaEquipamento();
             contador++;
@@ -28,7 +28,7 @@
 
             CadastradoComSucesso();
         }
-        private string RecebeInformacao(string texto)
+        public string RecebeInformacao(string texto)
         {
             Console.Write(texto);
             return Console.ReadLine();
