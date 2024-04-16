@@ -2,7 +2,6 @@
 {
     internal class Equipamento
     {
-        //Todos string pois não vou fazer operações numéricas (somar ou afins)
         public string nome, dataFabricacao, fabricante, numeroSerie, precoAquisicao;
         public int id;
         public Equipamento(int id)
@@ -20,7 +19,7 @@
         //Auxiliares
         private void IniciaEquipamento()
         {
-            nome = RecebeInformacao("Registrando um novo equipamento\n\nInforme o nome do equipamento: ");
+            nome = TestaNome();
             precoAquisicao = RecebeInformacao("Informe o preço de aquisição: R$ ");
             numeroSerie = RecebeInformacao("Informe o número de série: ");
             dataFabricacao = RecebeInformacao("Informe a data de fabricação: ");
@@ -28,7 +27,23 @@
 
             CadastradoComSucesso();
         }
-        public string RecebeInformacao(string texto)
+        private string TestaNome()
+        {
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Registrando um novo equipamento\n");
+                nome = RecebeInformacao("Informe o nome do equipamento: ");
+                if (nome.Length < 6)
+                {
+                    Console.WriteLine("Inválido. Tente novamente");
+                    Console.ReadLine();
+                }
+            }
+            while (nome.Length < 6);
+            return nome;
+        }
+        private string RecebeInformacao(string texto)
         {
             Console.Write(texto);
             return Console.ReadLine();
