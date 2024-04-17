@@ -19,6 +19,8 @@
         //Auxiliares
         private void IniciaEquipamento()
         {
+            Console.Clear();
+            Console.WriteLine("Registrando um novo equipamento\n");
             nome = TestaNome();
             precoAquisicao = RecebeInformacao("Informe o preço de aquisição: R$ ");
             numeroSerie = RecebeInformacao("Informe o número de série: ");
@@ -27,17 +29,16 @@
 
             CadastradoComSucesso();
         }
-        private string TestaNome()
+        public string TestaNome()
         {
             do
             {
-                Console.Clear();
-                Console.WriteLine("Registrando um novo equipamento\n");
                 nome = RecebeInformacao("Informe o nome do equipamento: ");
                 if (nome.Length < 6)
                 {
-                    Console.WriteLine("Inválido. Tente novamente");
-                    Console.ReadLine();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Inválido. Tente novamente\n");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
             while (nome.Length < 6);

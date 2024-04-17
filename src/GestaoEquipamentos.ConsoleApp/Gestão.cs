@@ -103,7 +103,7 @@ namespace GestaoEquipamentos.ConsoleApp
             do
             {
                 Console.Clear();
-                opcaoSemEquipamento = RecebeInformacao("  Ainda não existem equipamentos cadastrados :(\n\nDigite 1 para retornar\nDigite 2 para cadastrar novo equipamento\nDigite S para sair\n");
+                opcaoSemEquipamento = RecebeInformacao("Ainda não existem equipamentos cadastrados :(\n\nDigite 1 para retornar\nDigite 2 para cadastrar novo equipamento\nDigite S para sair\n");
 
                 if (opcaoSemEquipamento == "1") MenuCadastroDeEquipamentos(ref opcaoSemEquipamento);
                 else if (opcaoSemEquipamento == "2")Cadastrar();
@@ -145,7 +145,7 @@ namespace GestaoEquipamentos.ConsoleApp
                 opcao = RecebeInformacao("Digite 1 para editar o Número de Série\nDigite 2 para editar o Nome\nDigite 3 para editar o Preço\nDigite 4 para editar o Fabricante\nDigite 5 para editar a Data de fabricação\nDigite R para retornar\n\n");
 
                 if (opcao == "1") equipamentos[editarIndex].numeroSerie = RecebeInformacao("Informe o novo número de série: ");
-                else if (opcao == "2") equipamentos[editarIndex].nome = RecebeInformacao("Informe o novo nome: ");
+                else if (opcao == "2") equipamentos[editarIndex].nome = equipamentos[editarIndex].TestaNome();
                 else if (opcao == "3") equipamentos[editarIndex].precoAquisicao = RecebeInformacao("Informe o novo preço de aquisição: ");
                 else if (opcao == "5") equipamentos[editarIndex].dataFabricacao = RecebeInformacao("Informe a nova data de aquisição ");
                 else if (!Sair(opcao, "R")) opcao = RecebeInformacao("Opção inválida. 'Enter' para tentar novamente ou 'S' para sair\n");
