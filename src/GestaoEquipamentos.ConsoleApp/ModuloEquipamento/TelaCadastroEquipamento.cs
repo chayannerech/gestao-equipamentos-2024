@@ -32,12 +32,11 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
             string dataFabricacao = RecebeInformacao("Informe a data de fabricação: ");
             string fabricante = RecebeInformacao("Informe o fabricante: ");
             gerirInventario.Cadastrar(nome, precoAquisicao, numeroSerie, dataFabricacao, fabricante);
-            RealizadoComSucesso("cadastrado");
+            RealizadoComSucesso("equipamento cadastrado");
         }
         public string MenuVisualizar(ref string opcao, string texto)
         {
             string escolhaDeID = "";
-
             if (gerirInventario.ListaEstaVazia()) ListaVazia(ref opcao);
             else
             {
@@ -54,15 +53,21 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
             {
                 do
                 {
-                    string editarID = MenuVisualizar(ref opcao, "Qual o ID do equipamento que deseja editar? ");
-                    int editarIndex = gerirInventario.EditarIndex(editarID);
-                    var editarObjeto = gerirInventario.inventario[editarIndex];
+                    int editarIndex = -1;
+                    do
+                    {
+                        string editarID = MenuVisualizar(ref opcao, "Qual o ID do equipamento que deseja editar? ");
+                        gerirInventario.TestaID(editarID, ref editarIndex, ref opcao);
+                    }
+                    while (editarIndex == -1 && opcao.ToUpper() != "S");
 
+                    if (opcao.ToUpper() == "S") break;
+                    var editarObjeto = gerirInventario.inventario[editarIndex];
                     opcao = MenuEditar(opcao, editarIndex, editarObjeto);
                     gerirInventario.Editar(editarIndex, editarObjeto.nome, editarObjeto.precoAquisicao, editarObjeto.numeroSerie, editarObjeto.dataFabricacao, editarObjeto.fabricante);
                 }
                 while (opcao.ToUpper() == "R" || opcao.ToUpper() == "");
-                if (opcao.ToUpper() != "S") RealizadoComSucesso("editado");
+                if (opcao.ToUpper() != "S") RealizadoComSucesso("equipamento editado");
             }
         }
         public void MenuExcluir(ref string opcao)
@@ -70,9 +75,16 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
             if (gerirInventario.ListaEstaVazia()) ListaVazia(ref opcao);
             else
             {
-                int excluirID = Convert.ToInt32(MenuVisualizar(ref opcao, "Qual o ID do equipamento que deseja excluir? "));
-                gerirInventario.Excluir(excluirID);
-                RealizadoComSucesso("exluído");
+                int excluirIndex = -1;
+                do
+                {
+                    string excluirID = MenuVisualizar(ref opcao, "Qual o ID do equipamento que deseja excluir? ");
+                    gerirInventario.TestaID(excluirID, ref excluirIndex, ref opcao);
+                }
+                while (excluirIndex == -1);
+  
+                gerirInventario.Excluir(excluirIndex + 1);
+                RealizadoComSucesso("equipamento excluído");
             }
         }
 
@@ -102,7 +114,7 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
                 if (nome.Length < 6)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write("Inválido. Enter para tentar novamente");
+                    Console.Write("Inválido. Enter para tentar novamente ");
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.ReadLine();
                 }
@@ -112,7 +124,7 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
         public void RealizadoComSucesso(string texto)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\nEquipamento {texto} com sucesso!");
+            Console.WriteLine($"\n{texto} com sucesso!");
             Console.ForegroundColor = ConsoleColor.White;
             Console.ReadLine();
         }

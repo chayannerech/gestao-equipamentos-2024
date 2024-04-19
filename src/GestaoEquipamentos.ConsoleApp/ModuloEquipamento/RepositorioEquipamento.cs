@@ -42,14 +42,15 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
         }
 
         //Auxiliares de Edição
-        public int EditarIndex(string editarID)
+        public void TestaID(string editarID, ref int index, ref string opcao)
         {
-            int index = 0;
-            for (int i = 0; i < inventario.Length; i++)
+            for (int i = 0; i < inventario.Length; i++) if (inventario[i] != null) if (inventario[i].id == Convert.ToInt32(editarID)) index = i;
+            if (index == -1)
             {
-                if (inventario[i] != null) if (inventario[i].id == Convert.ToInt32(editarID)) index = i;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("\nO ID não existe. 'Enter' para tentar novamente ou 'S' para sair: ");
+                opcao = Console.ReadLine();
             }
-            return index;
         }
         public string VisualizarParaEdicao(int editarIndex) => $"  {inventario[editarIndex].id}\t| {inventario[editarIndex].numeroSerie}\t\t| {inventario[editarIndex].nome}\t\t| {inventario[editarIndex].precoAquisicao}\t\t| {inventario[editarIndex].fabricante}\t\t\t| {inventario[editarIndex].dataFabricacao}\n  ----------------------------------------------------------------------------------------------------------\n";
     }
