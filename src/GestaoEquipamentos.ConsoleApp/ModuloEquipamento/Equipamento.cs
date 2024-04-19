@@ -1,6 +1,5 @@
 ﻿namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
 {
-    //só equipamento
     internal class Equipamento
     {
         public string nome, dataFabricacao, fabricante, numeroSerie, precoAquisicao;

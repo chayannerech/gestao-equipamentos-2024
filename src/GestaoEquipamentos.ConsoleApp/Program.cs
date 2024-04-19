@@ -6,12 +6,25 @@ namespace GestaoEquipamentos.ConsoleApp
     {
         static void Main(string[] args)
         {
+            string opcao = "neutra";
             TelaCadastroEquipamento telaEquipamento = new TelaCadastroEquipamento();
 
-            string opcaoMenu = "neutra";
+            do MenuPrincipal(ref opcao, telaEquipamento);
+            while (opcao.ToUpper() != "S");
+        }
 
-            do telaEquipamento.Menu(ref opcaoMenu);
-            while (!telaEquipamento.inventario.Sair(opcaoMenu, "S"));
+        static void MenuPrincipal(ref string opcao, TelaCadastroEquipamento telaEquipamento)
+        {
+            do
+            {
+                Console.Clear();
+                opcao = telaEquipamento.RecebeInformacao("Gestão de Equipamentos\n\nDigite 1 para a gerir equipamentos\nDigite 2 para o gerir chamados\nDigite S para sair\n\nDigite: ");
+
+                if (opcao == "1") telaEquipamento.MenuEquipamentos(ref opcao);
+                else if (opcao == "2") Console.WriteLine("MenuChamados");
+                else telaEquipamento.OpcaoInvalida(ref opcao);
+            }
+            while (opcao == "");
         }
     }
 }
